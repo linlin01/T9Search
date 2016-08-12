@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<t9.launcher.tos.com.toslaunchert9search.T9SearchLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <t9.launcher.tos.com.toslaunchert9search.LineTextView
+        android:id="@+id/search_result_prompt_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="38dip"
+        android:gravity="center"
+        android:text=""
+        android:singleLine="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/search_emmpy"
+        android:layout_width="match_parent"
+        android:layout_height="38dip"
+        android:gravity="center"
+        android:text="拼音、语音查找应用"
+        android:layout_above="@+id/mAppSearchT9View"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <GridView
+        android:id="@+id/t9_search_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="80dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/search_result_prompt_text_view"
+        android:layout_above="@+id/mAppSearchT9View" />
+
+    <t9.launcher.tos.com.toslaunchert9search.AppSearchT9View
+        android:layout_width="match_parent"
+        android:layout_height="280dip"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/mAppSearchT9View">
+
+        <ImageView
+            android:id="@+id/dialNum1"
+            android:tag="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png01"/>
+
+        <ImageView
+            android:id="@+id/dialNum2"
+            android:tag="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png02"/>
+
+        <ImageView
+            android:id="@+id/dialNum3"
+            android:tag="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png03"/>
+
+        <ImageView
+            android:id="@+id/dialNum4"
+            android:tag="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:gravity="center"
+            android:background="@drawable/t9png04"/>
+
+        <ImageView
+            android:id="@+id/dialNum5"
+            android:tag="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png05"/>
+
+        <ImageView
+            android:id="@+id/dialNum6"
+            android:tag="6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png06"/>
+
+        <ImageView
+            android:id="@+id/dialNum7"
+            android:tag="7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png07"/>
+
+        <ImageView
+            android:id="@+id/dialNum8"
+            android:tag="8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png08"/>
+
+        <ImageView
+            android:id="@+id/dialNum9"
+            android:tag="9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png09"/>
+
+        <ImageView
+            android:id="@+id/dialNum0"
+            android:tag="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png10"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:gravity="center"
+            android:background="@drawable/t9png11"/>
+
+        <ImageView
+            android:id="@+id/dial_delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/t9png12"/>
+
+    </t9.launcher.tos.com.toslaunchert9search.AppSearchT9View>
+</t9.launcher.tos.com.toslaunchert9search.T9SearchLayout>
