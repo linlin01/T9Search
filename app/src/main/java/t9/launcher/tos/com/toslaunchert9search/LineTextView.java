@@ -2,6 +2,8 @@ package t9.launcher.tos.com.toslaunchert9search;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -10,7 +12,7 @@ import android.widget.TextView;
  * 带下划线的textView
  */
 public class LineTextView extends TextView {
-//    Paint mPaint=new Paint();
+    Paint mPaint=new Paint();
     public LineTextView(Context context) {
         super(context);
         init();
@@ -27,10 +29,10 @@ public class LineTextView extends TextView {
     }
 
     public void init(){
-//        mPaint.setStyle(Paint.Style.STROKE);//设置非填充
-//        mPaint.setStrokeWidth(1);//笔宽5像素
-//        mPaint.setColor(Color.BLACK);//设置为红笔
-//        mPaint.setAntiAlias(true);//锯齿不显示
+        mPaint.setStyle(Paint.Style.STROKE);//设置非填充
+        mPaint.setStrokeWidth(1);//笔宽5像素
+        mPaint.setColor(Color.BLACK);//设置为红笔
+        mPaint.setAntiAlias(true);//锯齿不显示
     }
 
     @Override

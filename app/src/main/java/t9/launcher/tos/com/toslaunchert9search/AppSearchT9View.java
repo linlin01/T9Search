@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
+                Log.i("zhao11t9","afterTextChanged");
                 if (null != mOnT9TelephoneDialpadView) {
                     String inputStr=s.toString();
                     mOnT9TelephoneDialpadView.onDialInputTextChanged(inputStr);
@@ -196,6 +198,7 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
                         .onDeleteDialCharacter(deleteCharacter);
             }
             mT9InputEt.setText("");
+            Log.i("zhao11t9", "222222222");
 //            ViewUtil.hideView(mDialDeleteBtn);
         }
     }
@@ -223,6 +226,7 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
     }
 
     private void addSingleDialCharacter(String addCharacter) {
+        Log.i("zhao11t9","333333333333");
         String preInputStr = mT9InputEt.getText().toString();
         if (!TextUtils.isEmpty(addCharacter)) {
             mT9InputEt.setText(preInputStr + addCharacter);

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <t9.launcher.tos.com.toslaunchert9search.LineTextView
+    <!--<t9.launcher.tos.com.toslaunchert9search.LineTextView-->
+    <TextView
         android:id="@+id/search_result_prompt_text_view"
         android:layout_width="match_parent"
         android:layout_height="38dip"

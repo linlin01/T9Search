@@ -22,7 +22,7 @@ import t9.launcher.tos.com.toslaunchert9search.AppInfo.SearchByType;
 
 
 public class AppInfoHelper {
-	private static final String TAG="AppInfoHelper";
+	private static final String TAG="zhao11t9";
 	private static Character THE_LAST_ALPHABET='z';
 	private Context mContext;
 	private static AppInfoHelper mInstance;
@@ -31,9 +31,13 @@ public class AppInfoHelper {
 	private List<AppInfo> mBaseAllAppInfos;
 	
 	private List<AppInfo> mQwertySearchAppInfos;
+
+    //搜索结果列表
 	private List<AppInfo> mT9SearchAppInfos;
 	
 	private StringBuffer mFirstNoQwertySearchResultInput=null;
+
+    //这个变量是记录第一次搜索为空的数字串而且以后保持不变只到删除key串
 	private StringBuffer mFirstNoT9SearchResultInput=null;
 	
 	private AsyncTask<Object, Object, List<AppInfo>> mLoadAppInfoTask=null;
@@ -185,7 +189,7 @@ public class AppInfoHelper {
 					}else{
 						nonKanjiStartAppInfos.add(appInfo);
 					}
-					
+
 				}
 			}
 			long endLoadTime= System.currentTimeMillis();
@@ -333,12 +337,13 @@ public class AppInfoHelper {
 	public void t9Search(String keyword){
 		List<AppInfo> baseAppInfos=getBaseAppInfo();
 		Log.i(TAG, "baseAppInfos["+baseAppInfos.size()+"]");
-		if(null!=mT9SearchAppInfos){
+		if(null != mT9SearchAppInfos){
 			mT9SearchAppInfos.clear();
 		}else{
-			mT9SearchAppInfos=new ArrayList<AppInfo>();
+			mT9SearchAppInfos = new ArrayList<AppInfo>();
 		}
-		
+
+        //下边这个判断是输入数字为空时候才执行的，keyword为输入数字
 		if(TextUtils.isEmpty(keyword)){
 			for(AppInfo ai:baseAppInfos){
 				ai.setSearchByType(SearchByType.SearchByNull);
@@ -348,12 +353,14 @@ public class AppInfoHelper {
 			}
 			
 			mT9SearchAppInfos.addAll(baseAppInfos);
-			
+
 			mFirstNoT9SearchResultInput.delete(0, mFirstNoT9SearchResultInput.length());
-			Log.i(TAG, "null==search,mFirstNoT9SearchResultInput.length()="+ mFirstNoT9SearchResultInput.length());
+			Log.i(TAG, "null==search,mFirstNoT9SearchResultInput.length()="
+                    + mFirstNoT9SearchResultInput.length()+","+
+                    mFirstNoT9SearchResultInput);
 			return;
 		}
-		
+
 		if (mFirstNoT9SearchResultInput.length() > 0) {
 			if (keyword.contains(mFirstNoT9SearchResultInput.toString())) {
 				Log.i(TAG,
@@ -382,7 +389,7 @@ public class AppInfoHelper {
 		int baseAppInfosCount=baseAppInfos.size();
 		for(int i=0; i<baseAppInfosCount; i++){
 			PinyinSearchUnit labelPinyinSearchUnit=baseAppInfos.get(i).getLabelPinyinSearchUnit();
-		
+//		    Log.i(TAG,"labelPinyinSearchUnit:"+labelPinyinSearchUnit.getPinyinUnits()+",keyword:"+keyword);
 			boolean match= T9Util.match(labelPinyinSearchUnit,keyword);
 			
 			if (true == match) {// search by LabelPinyinUnits;
