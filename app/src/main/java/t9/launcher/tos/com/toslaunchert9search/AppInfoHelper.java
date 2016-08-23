@@ -29,13 +29,9 @@ public class AppInfoHelper {
 	
 	private AppType mCurrentAppType;
 	private List<AppInfo> mBaseAllAppInfos;
-	
-	private List<AppInfo> mQwertySearchAppInfos;
 
     //搜索结果列表
 	private List<AppInfo> mT9SearchAppInfos;
-	
-	private StringBuffer mFirstNoQwertySearchResultInput=null;
 
     //这个变量是记录第一次搜索为空的数字串而且以后保持不变只到删除key串
 	private StringBuffer mFirstNoT9SearchResultInput=null;
@@ -87,14 +83,6 @@ public class AppInfoHelper {
 
 	public void setBaseAllAppInfos(List<AppInfo> baseAllAppInfos) {
 		mBaseAllAppInfos = baseAllAppInfos;
-	}
-	
-	public List<AppInfo> getQwertySearchAppInfos() {
-		return mQwertySearchAppInfos;
-	}
-
-	public void setQwertySearchAppInfos(List<AppInfo> qwertySearchAppInfos) {
-		mQwertySearchAppInfos = qwertySearchAppInfos;
 	}
 
 	public List<AppInfo> getT9SearchAppInfos() {
@@ -249,91 +237,7 @@ public class AppInfoHelper {
 		//Toast.makeText(context,"["+ appInfos.get(0).getLabel()+"]["+appInfos.get(0).getPackageName()+"]", Toast.LENGTH_LONG).show();
 		return appInfos;
 	}
-	
-	public void qwertySearch(String keyword){
-		List<AppInfo> baseAppInfos=getBaseAppInfo();
-		if(null!=mQwertySearchAppInfos){
-			mQwertySearchAppInfos.clear();
-		}else{
-			mQwertySearchAppInfos=new ArrayList<AppInfo>();
-		}
-		
-		if(TextUtils.isEmpty(keyword)){
-			for(AppInfo ai:baseAppInfos){
-				ai.setSearchByType(SearchByType.SearchByNull);
-				ai.clearMatchKeywords();
-				ai.setMatchStartIndex(-1);
-				ai.setMatchLength(0);
-			}
-			mQwertySearchAppInfos.addAll(baseAppInfos);
-			
-			mFirstNoQwertySearchResultInput.delete(0, mFirstNoQwertySearchResultInput.length());
-			Log.i(TAG, "null==search,mFirstNoQwertySearchResultInput.length()="+ mFirstNoQwertySearchResultInput.length());
-			return;
-		}
-		
-		if (mFirstNoQwertySearchResultInput.length() > 0) {
-			if (keyword.contains(mFirstNoQwertySearchResultInput.toString())) {
-				Log.i(TAG,
-						"no need  to search,null!=search,mFirstNoQwertySearchResultInput.length()="
-								+ mFirstNoQwertySearchResultInput.length() + "["
-								+ mFirstNoQwertySearchResultInput.toString() + "]"
-								+ ";searchlen=" + keyword.length() + "["
-								+ keyword + "]");
-				return;
-			} else {
-				Log.i(TAG,
-						"delete  mFirstNoQwertySearchResultInput, null!=search,mFirstNoQwertySearchResultInput.length()="
-								+ mFirstNoQwertySearchResultInput.length()
-								+ "["
-								+ mFirstNoQwertySearchResultInput.toString()
-								+ "]"
-								+ ";searchlen="
-								+ keyword.length()
-								+ "["
-								+ keyword + "]");
-				mFirstNoQwertySearchResultInput.delete(0,mFirstNoQwertySearchResultInput.length());
-			}
-		}
-		
-		mQwertySearchAppInfos.clear();
-		int baseAppInfosCount=baseAppInfos.size();
-		for(int i=0; i<baseAppInfosCount; i++){
-			PinyinSearchUnit labelPinyinSearchUnit=baseAppInfos.get(i).getLabelPinyinSearchUnit();
-			boolean match= QwertyUtil.match(labelPinyinSearchUnit,keyword);
-			
-			
-			if (true == match) {// search by LabelPinyinUnits;
-				AppInfo appInfo = baseAppInfos.get(i);
-				appInfo.setSearchByType(SearchByType.SearchByLabel);
-				appInfo.setMatchKeywords(labelPinyinSearchUnit.getMatchKeyword().toString());
-				appInfo.setMatchStartIndex(appInfo.getLabel().indexOf(appInfo.getMatchKeywords().toString()));
-				appInfo.setMatchLength(appInfo.getMatchKeywords().length());
-				
-				mQwertySearchAppInfos.add(appInfo);
 
-				continue;
-			}
-		}
-		
-		if (mQwertySearchAppInfos.size() <= 0) {
-			if (mFirstNoQwertySearchResultInput.length() <= 0) {
-				mFirstNoQwertySearchResultInput.append(keyword);
-				Log.i(TAG,
-						"no search result,null!=search,mFirstNoQwertySearchResultInput.length()="
-								+ mFirstNoQwertySearchResultInput.length() + "["
-								+ mFirstNoQwertySearchResultInput.toString() + "]"
-								+ ";searchlen=" + keyword.length() + "["
-								+ keyword + "]");
-			} else {
-
-			}
-		}else{
-			Collections.sort(mQwertySearchAppInfos, AppInfo.mSearchComparator);
-		}
-		return;
-	}
-	
 	public void t9Search(String keyword){
 		List<AppInfo> baseAppInfos=getBaseAppInfo();
 		Log.i(TAG, "baseAppInfos["+baseAppInfos.size()+"]");
@@ -361,7 +265,10 @@ public class AppInfoHelper {
 			return;
 		}
 
+        //mFirstNoT9SearchResultInput 这个变量是记录第一次没有结果的数字串
+		//这个判断是说已经有为搜索的数字穿记录了，
 		if (mFirstNoT9SearchResultInput.length() > 0) {
+            //再继续输入数字的话直接走这个方法来返回空的搜索结果就可以了
 			if (keyword.contains(mFirstNoT9SearchResultInput.toString())) {
 				Log.i(TAG,
 						"no need  to search,null!=search,mFirstNoT9SearchResultInput.length()="
@@ -370,7 +277,7 @@ public class AppInfoHelper {
 								+ ";searchlen=" + keyword.length() + "["
 								+ keyword + "]");
 				return;
-			} else {
+			} else {//else 就是说当前输入的keyword被删除了（就是按了退格键）
 				Log.i(TAG,
 						"delete  mFirstNoT9SearchResultInput, null!=search,mFirstNoT9SearchResultInput.length()="
 								+ mFirstNoT9SearchResultInput.length()
@@ -381,10 +288,12 @@ public class AppInfoHelper {
 								+ keyword.length()
 								+ "["
 								+ keyword + "]");
+                //将mFirstNoT9SearchResultInput置为空
 				mFirstNoT9SearchResultInput.delete(0,mFirstNoT9SearchResultInput.length());
 			}
 		}
-		
+
+        //
 		mT9SearchAppInfos.clear();
 		int baseAppInfosCount=baseAppInfos.size();
 		for(int i=0; i<baseAppInfosCount; i++){
@@ -421,48 +330,19 @@ public class AppInfoHelper {
 		}
 		return;
 	}
-	
-	public boolean isAppExist(String packageName){
-		boolean appExist=false;
-		do{
-			if(TextUtils.isEmpty(packageName)){
-				break;
-			}
-			
-			for(AppInfo ai:mBaseAllAppInfos){
-				if(ai.getPackageName().equals(packageName)){
-					appExist=true;
-					break;
-				}
-			}
-		}while(false);
-		
-		return appExist;
-	}
-	
+
 	private void clearAppInfoData(){
 		
 		if(null==mBaseAllAppInfos){
 			mBaseAllAppInfos=new ArrayList<AppInfo>();
 		}
 		mBaseAllAppInfos.clear();
-		
-		if(null==mQwertySearchAppInfos){
-			mQwertySearchAppInfos=new ArrayList<AppInfo>();
-		}
-		mQwertySearchAppInfos.clear();
-		
+
 		if(null==mT9SearchAppInfos){
 			mT9SearchAppInfos=new ArrayList<AppInfo>();
 		}
 		mT9SearchAppInfos.clear();
-		
-		if(null==mFirstNoQwertySearchResultInput){
-			mFirstNoQwertySearchResultInput=new StringBuffer();
-		}else{
-			mFirstNoQwertySearchResultInput.delete(0, mFirstNoQwertySearchResultInput.length());
-		}
-		
+
 		if(null==mFirstNoT9SearchResultInput){
 			mFirstNoT9SearchResultInput=new StringBuffer();
 		}else{
@@ -483,6 +363,7 @@ public class AppInfoHelper {
 		return appInfo;
 		
 	}
+
 	private boolean isLoading(){
 		return ((null!=mLoadAppInfoTask)&&(mLoadAppInfoTask.getStatus()== Status.RUNNING));
 	}

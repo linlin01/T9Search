@@ -3,6 +3,7 @@ package t9.launcher.tos.com.toslaunchert9search;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
@@ -47,7 +48,6 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
                 mAppInfoAdapter = new AppInfoAdapter(getContext(),
                         R.layout.app_info_grid_item, AppInfoHelper.getInstance()
                         .getT9SearchAppInfos());
-
 
                 t9_search_grid_view.setAdapter(mAppInfoAdapter);
             }
@@ -103,10 +103,12 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
         if (null == t9_search_grid_view) {
             return;
         }
-
+        //t9_search_grid_view.setAdapter(mAppInfoAdapter); 52行的代码
+        //所以这里的getAdapter获得的就是 mAppInfoAdapter 对象
         BaseAdapter baseAdapter = (BaseAdapter) t9_search_grid_view.getAdapter();
         if (null != baseAdapter) {
-            baseAdapter.notifyDataSetChanged();
+            baseAdapter.notifyDataSetChanged();//这个语句就是观察这模式的一句（提示这个baseAdapter）改变了
+            Log.i("zhao11t9","baseAdapter.getCount():"+baseAdapter.getCount());
             if (baseAdapter.getCount() > 0) {
                 ViewUtil.showView(t9_search_grid_view);
                 ViewUtil.hideView(search_emmpy);
@@ -116,7 +118,5 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
             }
         }
     }
-
-
 
 }

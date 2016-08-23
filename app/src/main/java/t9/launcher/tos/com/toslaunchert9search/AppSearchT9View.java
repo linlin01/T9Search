@@ -19,6 +19,20 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
 
     private TextView mT9InputEt;
     private ImageView mDialDeleteBtn;
+
+    public AppSearchT9View(Context context) {
+        this(context,null);
+    }
+
+    public AppSearchT9View(Context context, AttributeSet attrs) {
+        this(context, attrs,0);
+    }
+
+    public AppSearchT9View(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs);
+    }
+
     public void setTextInput(TextView mT9InputEt){
         this.mT9InputEt=mT9InputEt;
 
@@ -56,15 +70,6 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
     public void setOnT9TelephoneDialpadView(
             OnT9TelephoneDialpadView onT9TelephoneDialpadView) {
         mOnT9TelephoneDialpadView = onT9TelephoneDialpadView;
-    }
-    public AppSearchT9View(Context context) {
-        super(context);
-        init(context,null);
-    }
-
-    public AppSearchT9View(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context,attrs);
     }
 
 
