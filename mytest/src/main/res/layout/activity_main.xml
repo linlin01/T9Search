@@ -12,7 +12,7 @@
     <linlin.com.common.T9View
         android:id="@+id/appDialerId"
         android:layout_width="fill_parent"
-        android:layout_height="300dp">
+        android:layout_height="280dp">
 
     </linlin.com.common.T9View>
 </RelativeLayout>

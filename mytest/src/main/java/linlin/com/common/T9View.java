@@ -14,8 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import linlin.com.myapplication.R;
@@ -25,26 +24,95 @@ import linlin.com.myapplication.R;
  * T9拼音键盘
  * 
  * */
-public class T9View extends RelativeLayout implements OnClickListener{
+public class T9View extends FrameLayout implements OnClickListener{
 	private String mKeyWords = "";
 	private TextView mKeyWordsTxt = null;
 	private OnKeyClickListener mOnKeyClickListener = null;
 	private Context mContext = null;
+
+	public T9View(Context context) {
+		this(context, null);
+	}
+
+	public T9View(Context context, AttributeSet attrs) {
+		this(context, attrs,0);
+	}
+
 	public T9View(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initT9View(context);
 	}
 
-	public T9View(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		initT9View(context);
+	/**
+	 * 初始化T9盘
+	 * @param context
+	 */
+	private void initT9View(Context context){
+		mContext = context;
+		View view = LayoutInflater.from(context).inflate(R.layout.view_9keyboard_layout, null);
+		//view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+
+//		mKeyWordsTxt = (TextView)view.findViewById(R.id.keyWordsTxtId);
+//		mKeyWordsTxt.setText(mContext.getResources().getString(R.string.long_click_start_voice));
+//		mKeyWordsTxt.setOnLongClickListener(new OnLongClickListener() {
+//			@Override
+//			public boolean onLongClick(View v) {
+//				if(null != mOnKeyClickListener){
+//					mOnKeyClickListener.onClickVoice();
+//				}
+//				return false;
+//			}
+//		});
+
+		Button key1Btn = (Button)view.findViewById(R.id.key1BtnId);
+		key1Btn.setText(getAlphaFormatString("1"));
+		key1Btn.setOnClickListener(this);
+
+		Button key2Btn = (Button)view.findViewById(R.id.key2BtnId);
+		key2Btn.setText(getFormatString("2 ABC"));
+		key2Btn.setOnClickListener(this);
+
+		Button key3Btn = (Button)view.findViewById(R.id.key3BtnId);
+		key3Btn.setText(getFormatString("3 DEF"));
+		key3Btn.setOnClickListener(this);
+
+		Button key4Btn = (Button)view.findViewById(R.id.key4BtnId);
+		key4Btn.setText(getFormatString("4 GHI"));
+		key4Btn.setOnClickListener(this);
+
+		Button key5Btn = (Button)view.findViewById(R.id.key5BtnId);
+		key5Btn.setText(getFormatString("5 JKL"));
+		key5Btn.setOnClickListener(this);
+
+		Button key6Btn = (Button)view.findViewById(R.id.key6BtnId);
+		key6Btn.setText(getFormatString("6 MNO"));
+		key6Btn.setOnClickListener(this);
+
+		Button key7Btn = (Button)view.findViewById(R.id.key7BtnId);
+		key7Btn.setText(getFormatString("7 PQRS"));
+		key7Btn.setOnClickListener(this);
+
+		Button key8Btn = (Button)view.findViewById(R.id.key8BtnId);
+		key8Btn.setText(getFormatString("8 TUV"));
+		key8Btn.setOnClickListener(this);
+
+		Button key9Btn = (Button)view.findViewById(R.id.key9BtnId);
+		key9Btn.setText(getFormatString("9 WXYZ"));
+		key9Btn.setOnClickListener(this);
+
+		Button key10Btn = (Button)view.findViewById(R.id.key10BtnId);
+		key10Btn.setOnClickListener(this);
+
+		Button key11Btn = (Button)view.findViewById(R.id.key11BtnId);
+		key11Btn.setText(getAlphaFormatString("0"));
+		key11Btn.setOnClickListener(this);
+
+		Button key12Btn = (Button)view.findViewById(R.id.key12BtnId);
+		key12Btn.setOnClickListener(this);
+
+		addView(view);
 	}
 
-	public T9View(Context context) {
-		super(context);
-		initT9View(context);
-	}
-	
 	@Override
 	public void onClick(View v) {
 		if(null == mOnKeyClickListener){
@@ -135,85 +203,24 @@ public class T9View extends RelativeLayout implements OnClickListener{
 	public void setOnKeyClickListener(OnKeyClickListener onKeyClickListener){
 		mOnKeyClickListener = onKeyClickListener;
 	}
-	
-	private void initT9View(Context context){
-		mContext = context;
-		View view = LayoutInflater.from(context).inflate(R.layout.view_9keyboard_layout, null);
-		view.setLayoutParams(new LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
-	
-		mKeyWordsTxt = (TextView)view.findViewById(R.id.keyWordsTxtId);
-		mKeyWordsTxt.setText(mContext.getResources().getString(R.string.long_click_start_voice));
-		mKeyWordsTxt.setOnLongClickListener(new OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				if(null != mOnKeyClickListener){
-					mOnKeyClickListener.onClickVoice();
-				}
-				return false;
-			}
-		});
-		
-		Button key1Btn = (Button)view.findViewById(R.id.key1BtnId);
-		key1Btn.setText(getAlphaFormatString("1"));
-		key1Btn.setOnClickListener(this);
-		
-		Button key2Btn = (Button)view.findViewById(R.id.key2BtnId);
-		key2Btn.setText(getFormatString("2 ABC"));
-		key2Btn.setOnClickListener(this);
-		
-		Button key3Btn = (Button)view.findViewById(R.id.key3BtnId);
-		key3Btn.setText(getFormatString("3 DEF"));
-		key3Btn.setOnClickListener(this);
-		
-		Button key4Btn = (Button)view.findViewById(R.id.key4BtnId);
-		key4Btn.setText(getFormatString("4 GHI"));
-		key4Btn.setOnClickListener(this);
-		
-		Button key5Btn = (Button)view.findViewById(R.id.key5BtnId);
-		key5Btn.setText(getFormatString("5 JKL"));
-		key5Btn.setOnClickListener(this);
-		
-		Button key6Btn = (Button)view.findViewById(R.id.key6BtnId);
-		key6Btn.setText(getFormatString("6 MNO"));
-		key6Btn.setOnClickListener(this);
-		
-		Button key7Btn = (Button)view.findViewById(R.id.key7BtnId);
-		key7Btn.setText(getFormatString("7 PQRS"));
-		key7Btn.setOnClickListener(this);
-		
-		Button key8Btn = (Button)view.findViewById(R.id.key8BtnId);
-		key8Btn.setText(getFormatString("8 TUV"));
-		key8Btn.setOnClickListener(this);
-		
-		Button key9Btn = (Button)view.findViewById(R.id.key9BtnId);
-		key9Btn.setText(getFormatString("9 WXYZ"));
-		key9Btn.setOnClickListener(this);
-		
-		Button key10Btn = (Button)view.findViewById(R.id.key10BtnId);
-		key10Btn.setOnClickListener(this);
-		
-		Button key11Btn = (Button)view.findViewById(R.id.key11BtnId);
-		key11Btn.setText(getAlphaFormatString("0"));
-		key11Btn.setOnClickListener(this);
-		
-		Button key12Btn = (Button)view.findViewById(R.id.key12BtnId);
-		key12Btn.setOnClickListener(this);
-		
-		addView(view);
-	}
-	
+
 	private SpannableString getFormatString(String srcString){
 		SpannableString srcSpannableString = new SpannableString(srcString);
-		srcSpannableString.setSpan(new ForegroundColorSpan(0x7fffffff), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		srcSpannableString.setSpan(new AbsoluteSizeSpan((int)mContext.getResources().getDimension(R.dimen.toast_text_size)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+		srcSpannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.key_text_color1))
+				, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		srcSpannableString.setSpan(new AbsoluteSizeSpan(
+				(int)mContext.getResources().getDimension(R.dimen.toast_text_size))
+				, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		
 		return srcSpannableString;
 	}
 	
 	private SpannableString getAlphaFormatString(String srcString){
 		SpannableString srcSpannableString = new SpannableString(srcString);
-		srcSpannableString.setSpan(new ForegroundColorSpan(0x7fffffff), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		
+//		srcSpannableString.setSpan(new ForegroundColorSpan(0x7fffffff), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		srcSpannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.key_text_color1))
+				, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
 		return srcSpannableString;
 	}
 	
