@@ -20,6 +20,8 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
     private TextView mT9InputEt;
     private ImageView mDialDeleteBtn;
 
+    private OnT9TelephoneDialpadView mOnT9TelephoneDialpadView = null;
+    
     public AppSearchT9View(Context context) {
         this(context,null);
     }
@@ -32,6 +34,17 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
+
+
+    public OnT9TelephoneDialpadView getOnT9TelephoneDialpadView() {
+        return mOnT9TelephoneDialpadView;
+    }
+
+    public void setOnT9TelephoneDialpadView(
+            OnT9TelephoneDialpadView onT9TelephoneDialpadView) {
+        mOnT9TelephoneDialpadView = onT9TelephoneDialpadView;
+    }
+
 
     public void setTextInput(TextView mT9InputEt){
         this.mT9InputEt=mT9InputEt;
@@ -62,16 +75,6 @@ public class AppSearchT9View extends ViewGroup implements View.OnClickListener {
             }
         });
     }
-    private OnT9TelephoneDialpadView mOnT9TelephoneDialpadView = null;
-    public OnT9TelephoneDialpadView getOnT9TelephoneDialpadView() {
-        return mOnT9TelephoneDialpadView;
-    }
-
-    public void setOnT9TelephoneDialpadView(
-            OnT9TelephoneDialpadView onT9TelephoneDialpadView) {
-        mOnT9TelephoneDialpadView = onT9TelephoneDialpadView;
-    }
-
 
     public  void init(Context context,AttributeSet attrs){
         setPadding(25,25,25,25);

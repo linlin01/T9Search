@@ -20,17 +20,28 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
 
     private AppInfoAdapter mAppInfoAdapter;
     public T9SearchLayout(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public T9SearchLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
     }
 
     public T9SearchLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * view的onFinishInflate()何时调用的？
+     * 当View中所有的子控件均被映射成xml后触发；
+     * MyView mv = (MyView)View.inflate (context,R.layout.my_view,null);
+     * 当加载完成xml后，就会执行那个方法；
+     * 我们一般使用View的流程是在onCreate中使用setContentView来设置要显示Layout文件或直接创建一个View，
+     * 在当设置了ContentView之后系统会对这个View进行解析，然后回调当前视图View中的onFinishInflate方法。
+     * 只有解析了这个View我们才能在这个View容器中获取到拥有Id的组件，
+     * 同样因为系统解析完View之后才会调用onFinishInflate方法，
+     * 所以我们自定义组件时可以onFinishInflate方法中获取指定子View的引用。
+     */
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -95,9 +106,7 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
 
     public void refreshView() {
         refreshT9SearchGv();
-
     }
-
 
     private void refreshT9SearchGv() {
         if (null == t9_search_grid_view) {

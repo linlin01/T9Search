@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="key_text_size">20sp</dimen>
+    <dimen name="search_toast_text_size">20sp</dimen>
+    <dimen name="app_item_wh">60dp</dimen>
+    <dimen name="app_icon_wh">48dp</dimen>
+    <dimen name="toast_text_size">20sp</dimen>
+</resources>
