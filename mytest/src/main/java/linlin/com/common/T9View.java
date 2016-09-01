@@ -45,24 +45,22 @@ public class T9View extends FrameLayout implements OnClickListener{
 
 	/**
 	 * 初始化T9盘
+	 * 获得12个按键并绑定监听事件
 	 * @param context
 	 */
 	private void initT9View(Context context){
 		mContext = context;
+		//view_9keyboard_layout.xml是12个按键的布局文件，我想把他们封装到我这个自定义的T9View.java里
+		//就得通过LayoutInflater把view_9keyboard_layout.xml实例化为一个view然后addView(view)来添加到
+		//T9View.java里 T9View.java是继承自FrameLayout，其他布局文件引用的时候按照如下引用就好了
+		// <linlin.com.common.T9View
+		// android:id="@+id/appDialerId"
+		// android:layout_width="fill_parent"
+		// android:layout_height="280dp">
+		// </linlin.com.common.T9View>
+		//
 		View view = LayoutInflater.from(context).inflate(R.layout.view_9keyboard_layout, null);
 		//view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-
-//		mKeyWordsTxt = (TextView)view.findViewById(R.id.keyWordsTxtId);
-//		mKeyWordsTxt.setText(mContext.getResources().getString(R.string.long_click_start_voice));
-//		mKeyWordsTxt.setOnLongClickListener(new OnLongClickListener() {
-//			@Override
-//			public boolean onLongClick(View v) {
-//				if(null != mOnKeyClickListener){
-//					mOnKeyClickListener.onClickVoice();
-//				}
-//				return false;
-//			}
-//		});
 
 		Button key1Btn = (Button)view.findViewById(R.id.key1BtnId);
 		key1Btn.setText(getAlphaFormatString("1"));
@@ -204,6 +202,7 @@ public class T9View extends FrameLayout implements OnClickListener{
 		mOnKeyClickListener = onKeyClickListener;
 	}
 
+	//SpannableString 是貌似乐意理解为超文本，可以在同一个文本里设置不同的颜色 不同的超链接之类的东东
 	private SpannableString getFormatString(String srcString){
 		SpannableString srcSpannableString = new SpannableString(srcString);
 		srcSpannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.key_text_color1))
