@@ -9,14 +9,16 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ui.common.T9View;
+
 /**
  * t9 搜索器
  */
-public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.OnT9TelephoneDialpadView {
+public class T9SearchLayout extends RelativeLayout implements T9View.T9ViewListener{
 
     TextView search_result_prompt_text_view,search_emmpy;
     GridView t9_search_grid_view;
-    AppSearchT9View mAppSearchT9View;
+    T9View mT9View = null;
 
     private AppInfoAdapter mAppInfoAdapter;
     public T9SearchLayout(Context context) {
@@ -48,11 +50,10 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
         search_result_prompt_text_view= (TextView) findViewById(R.id.search_result_prompt_text_view);
         search_emmpy= (TextView) findViewById(R.id.search_emmpy);
         t9_search_grid_view= (GridView) findViewById(R.id.t9_search_grid_view);
-        mAppSearchT9View= (AppSearchT9View) findViewById(R.id.mAppSearchT9View);
 
-        mAppSearchT9View.setTextInput(search_result_prompt_text_view);
-        mAppSearchT9View.setOnT9TelephoneDialpadView(this);
-
+        mT9View = (T9View) findViewById(R.id.mt9view);
+        mT9View.setTextInput(search_result_prompt_text_view);
+        mT9View.setT9ViewListener(this);
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -63,29 +64,6 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
                 t9_search_grid_view.setAdapter(mAppInfoAdapter);
             }
         },2000);
-
-    }
-
-
-    @Override
-    public void onAddDialCharacter(String addCharacter) {
-
-    }
-
-    @Override
-    public void onDeleteDialCharacter(String deleteCharacter) {
-
-    }
-
-    @Override
-    public void onDialInputTextChanged(String curCharacter) {
-        updateSearch(curCharacter);
-        refreshView();
-    }
-
-
-    @Override
-    public void onHideT9TelephoneDialpadView() {
 
     }
 
@@ -128,4 +106,19 @@ public class T9SearchLayout extends RelativeLayout implements AppSearchT9View.On
         }
     }
 
+    @Override
+    public void AddDialCharacter(String addCharacter) {
+
+    }
+
+    @Override
+    public void DeleteDialCharacter(String deleteCharacter) {
+
+    }
+
+    @Override
+    public void DialInputTextChanged(String curCharacter) {
+        updateSearch(curCharacter);
+        refreshView();
+    }
 }

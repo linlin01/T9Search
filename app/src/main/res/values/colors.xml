@@ -6,4 +6,7 @@
     <color name="workspace_icon_text_color">#ffffffff</color>
     <color name="white_smoke">#FFF5F5F5</color>
     <color name="black">#FF000000</color>
+
+    <color name="key_text_color">#aa000000</color>
+    <color name="key_text_color1">#44000000</color>
 </resources>
