@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/T9Search.iml" filepath="$PROJECT_DIR$/T9Search.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blurImage/blurImage.iml" filepath="$PROJECT_DIR$/blurImage/blurImage.iml" />
     </modules>
   </component>
 </project>
