@@ -15,14 +15,16 @@ public class AppInfoAdapter extends ArrayAdapter<AppInfo> {
 	private Context mContext;
 	private int mTextViewResourceId;
 
-	private List<AppInfo> mAppInfos;
+	//private List<AppInfo> mAppInfos;
 
 	public AppInfoAdapter(Context context, int textViewResourceId,
 						  List<AppInfo> appInfos) {
+        //这个父类的构造方法里传入appInfos就可以在AppInfo appInfo = getItem(position);
+        //不用重写getItem方法。不知道是不是ArrayAdapter已经复写了getitem方法。
 		super(context, textViewResourceId, appInfos);
 		mContext = context;
 		mTextViewResourceId = textViewResourceId;
-		mAppInfos = appInfos;
+		//mAppInfos = appInfos;
 
 	}
 

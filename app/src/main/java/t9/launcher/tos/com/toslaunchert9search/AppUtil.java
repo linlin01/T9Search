@@ -32,7 +32,6 @@ public class AppUtil {
 			}
 		}while(false);
 		
-		
 		return startAppSuccess;
 	}
 	
