@@ -26,8 +26,7 @@ public class AppInfoHelper {
 	private static Character THE_LAST_ALPHABET='z';
 	private Context mContext;
 	private static AppInfoHelper mInstance;
-	
-	private AppType mCurrentAppType;
+
 	private List<AppInfo> mBaseAllAppInfos;
 
     //搜索结果列表
@@ -37,7 +36,6 @@ public class AppInfoHelper {
 	private StringBuffer mFirstNoT9SearchResultInput=null;
 	
 	private AsyncTask<Object, Object, List<AppInfo>> mLoadAppInfoTask=null;
-	private OnAppInfoLoad mOnAppInfoLoad;
 	private boolean mAppInfoChanged=true;
 
 	public interface OnAppInfoLoad{
@@ -61,25 +59,12 @@ public class AppInfoHelper {
 	
 	private void initAppInfoHelper(){
 		mContext=AppSearchApplication.getContext();
-		setCurrentAppType(AppType.ALL_APP);
 		
 		clearAppInfoData();
 		
 		return;
 	}
 
-	
-	public AppType getCurrentAppType() {
-		return mCurrentAppType;
-	}
-
-	public void setCurrentAppType(AppType currentAppType) {
-		mCurrentAppType = currentAppType;
-	}
-		
-	public List<AppInfo> getBaseAllAppInfos() {
-		return mBaseAllAppInfos;
-	}
 
 	public void setBaseAllAppInfos(List<AppInfo> baseAllAppInfos) {
 		mBaseAllAppInfos = baseAllAppInfos;
@@ -87,18 +72,6 @@ public class AppInfoHelper {
 
 	public List<AppInfo> getT9SearchAppInfos() {
 		return mT9SearchAppInfos;
-	}
-
-	public void setT9SearchAppInfos(List<AppInfo> t9SearchAppInfos) {
-		mT9SearchAppInfos = t9SearchAppInfos;
-	}
-
-	public OnAppInfoLoad getOnAppInfoLoad() {
-		return mOnAppInfoLoad;
-	}
-
-	public void setOnAppInfoLoad(OnAppInfoLoad onAppInfoLoad) {
-		mOnAppInfoLoad = onAppInfoLoad;
 	}
 
 	public boolean isAppInfoChanged() {
@@ -224,12 +197,7 @@ public class AppInfoHelper {
 			}
 		}
 		/*End: merge nonKanjiStartAppInfos and kanjiStartAppInfos*/
-	
-		
-/*		for(int i=0; i<appInfos.size(); i++){
-			Log.i(TAG, i+"["+appInfos.get(i).getLabel()+"]");
-		}*/
-		
+
 		long sortEndTime= System.currentTimeMillis();
 		Log.i(TAG, "sortEndTime-sortStartTime["+(sortEndTime-sortStartTime)+"]");
 	
@@ -293,7 +261,6 @@ public class AppInfoHelper {
 			}
 		}
 
-        //
 		mT9SearchAppInfos.clear();
 		int baseAppInfosCount=baseAppInfos.size();
 		for(int i=0; i<baseAppInfosCount; i++){
@@ -367,25 +334,15 @@ public class AppInfoHelper {
 	private boolean isLoading(){
 		return ((null!=mLoadAppInfoTask)&&(mLoadAppInfoTask.getStatus()== Status.RUNNING));
 	}
-	
+
 	private void parseAppInfo(List<AppInfo> appInfos){
 		Log.i(TAG, "parseAppInfo");
-		if(null==appInfos||appInfos.size()<1){
-			if(null!=mOnAppInfoLoad){
-				mOnAppInfoLoad.onAppInfoLoadFailed();
-			}
-			return;
-		}
-		
+
 		Log.i(TAG, "before appInfos.size()"+ appInfos.size());
 		mBaseAllAppInfos.clear();
 		mBaseAllAppInfos.addAll(appInfos);
 		Log.i(TAG, "after appInfos.size()"+ appInfos.size());
-		
-		if(null!=mOnAppInfoLoad){
-			mOnAppInfoLoad.onAppInfoLoadSuccess();
-		}
-		
+
 		return;
 	}
 	
@@ -404,13 +361,6 @@ public class AppInfoHelper {
 	}
 	
 	private List<AppInfo> getBaseAppInfo(){
-		List<AppInfo> baseAppInfos=null;
-		switch (getCurrentAppType()) {
-		//case ALL_APP:
-		default:
-			baseAppInfos=mBaseAllAppInfos;
-			break;
-		}
-		return baseAppInfos;
+		return mBaseAllAppInfos;
 	}
 }
